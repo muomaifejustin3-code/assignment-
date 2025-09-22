@@ -1,0 +1,1081 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dubem Graphics — Portfolio</title>
+  <meta name="description" content="Dubem Graphics — Frontend, Character & Graphic Designer.">
+  <style>
+/* Add these media queries to your existing CSS */
+
+/* General adjustments for smaller devices */
+@media (max-width: 1200px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+  .intro {
+    padding: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .profile-card {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow);
+    border-radius: 16px;
+    background: var(--card);
+    padding: 24px 16px;
+  }
+  .profile-left {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    box-shadow: 0 2px 12px rgba(47,168,255,0.08);
+    background: var(--glass);
+  }
+}
+
+/* Adjustments for tablets */
+@media (max-width: 768px) {
+  .services,
+  .projects-grid,
+  .testimonials,
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .cta {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+}
+
+/* Adjustments for mobile devices */
+@media (max-width: 480px) {
+  .brand h1 {
+    font-size: 18px;
+  }
+  .brand small {
+    font-size: 10px;
+  }
+  .nav ul {
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .stat {
+    min-width: auto;
+    padding: 8px;
+    font-size: 14px;
+  }
+  .socials a {
+    padding: 8px;
+    font-size: 13px;
+  }
+  .section-head h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .section-head p {
+    font-size: 12px;
+  }
+  .service {
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(47,168,255,0.06);
+  }
+  .project {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(47,168,255,0.06);
+  }
+  .modal-card {
+    width: 96%;
+    min-width: 220px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+}
+
+/* Add a hamburger menu for mobile devices */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text);
+  margin: 3px 0;
+}
+
+/* Show hamburger menu on smaller screens */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-dark);
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    padding: 10px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+}
+
+    /* =========================
+       THEME VARIABLES
+       ========================= */
+    :root{
+      --bg-dark: #071633;
+      --accent: #2FA8FF;
+      --muted: #93C9FF;
+      --text: #EAF2FF;
+      --card: #071820;
+      --black: #000000;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      --glass-2: rgba(255,255,255,0.03);
+      --shadow: 0 8px 24px rgba(2,6,23,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+.light-mode {
+  --bg-dark: #f5faff;
+  --accent: #2FA8FF;
+  --muted: #0078d4;
+  --text: #222;
+  --card: #fff;
+  --black: #000;
+  --glass: rgba(0,0,0,0.04);
+  --glass-2: rgba(0,0,0,0.03);
+  --shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.light-mode .btn,
+.light-mode .ghost {
+  background: #eaf6ff;
+  color: #2FA8FF;
+  border: 1px solid #2FA8FF;
+}
+.light-mode .section-head h3 {
+  color: #2FA8FF;
+}
+
+* { box-sizing: border-box; }
+html,body{height:100%}
+body{
+  margin:0;
+  background: radial-gradient(1200px 800px at 10% 10%, rgba(47,168,255,0.06), transparent),
+              radial-gradient(1000px 700px at 90% 90%, rgba(7,22,51,0.6), transparent),
+              var(--bg-dark);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+  font-size:16px;
+}
+
+a{color:var(--accent); text-decoration:none}
+img{max-width:100%; display:block}
+
+/* =========================
+       Full-Screen Image Modal
+       ========================= */
+       .image-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 100;
+    }
+
+    
+    .image-modal.show {
+      display: flex;
+    }
+
+    .image-modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 100%;
+    }
+
+    .image-modal-content img {
+      width: 90%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    
+    .image-modal-content .close-btn {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+/* =========================
+   LAYOUT
+   ========================= */
+.container{
+  width: min(1200px, 92%);
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+header{
+  position:sticky;
+  top:16px;
+  z-index:40;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(7,22,51,0.05), transparent);
+  margin: 0 auto 16px;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.nav{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.brand h1{
+  font-size:20px;
+  margin:0;
+  letter-spacing:0.6px;
+}
+.brand small{display:block; color:var(--muted); font-weight:600; font-size:11px}
+
+nav ul{
+  display:flex;
+  gap:8px;
+  list-style:none;
+  margin:0;
+  padding:0;
+  align-items:center;
+}
+nav li a{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:10px;
+  color:var(--text);
+  font-weight:600;
+}
+nav li a:hover{ background:var(--glass); color:var(--accent) }
+
+.cta{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+
+/* =========================
+   HERO
+   ========================= */
+.hero{
+  display:grid;
+  grid-template-columns: 1fr 420px;
+  gap:32px;
+  align-items:center;
+  margin-bottom:48px;
+}
+
+.intro{
+  padding:28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border:1px solid var(--glass-2);
+}
+.intro h2{ margin:0 0 8px; font-size:34px; }
+.intro p.lead{ margin:0 0 18px; color:var(--muted); max-width:60ch; }
+.roles{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.role{
+  background: linear-gradient(90deg, rgba(47,168,255,0.08), rgba(7,22,51,0.03));
+  padding:8px 12px;
+  border-radius:999px;
+  font-weight:700;
+  color:var(--muted);
+  font-size:14px;
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+.quick-stats{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:8px;
+}
+.stat{
+  padding:10px 14px;
+  background:var(--card);
+  border-radius:12px;
+  min-width:110px;
+  text-align:center;
+}
+.stat b{display:block; font-size:18px}
+.stat span{color:var(--muted); font-size:13px}
+
+.profile-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius: var(--radius);
+  padding: 18px; /* Removed extra 'px' */
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+  border:1px solid var(--glass-2);
+  box-shadow: 0 8px 28px rgba(2,6,23,0.6);
+  width: 500px;
+}
+.profile-left{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.avatar{
+  width:120px;
+  height:120px;
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(47,168,255,0.06), rgba(7,22,51,0.05));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border:1px solid var(--glass);
+  position:relative;
+}
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:inherit;
+  display:block;
+}
+.avatar .edit-hint{
+  position:absolute;
+  bottom:8px; left:8px;
+  background:rgba(0,0,0,0.45);
+  color:var(--text);
+  font-size:12px;
+  padding:6px 8px;
+  border-radius:8px;
+  backdrop-filter: blur(4px);
+}
+
+.profile-meta h3{ margin:0 0 6px; font-size:20px }
+.profile-meta p{ margin:0; color:var(--muted)}
+
+.socials{
+  display:flex;
+  gap:8px;
+}
+.socials a{
+  padding:10px 12px;
+  background:var(--glass);
+  border-radius:10px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+/* =========================
+   SECTIONS
+   ========================= */
+section{ margin-bottom:48px; }
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+.section-head h3{ margin:0; font-size:20px }
+.section-head p{ margin:0; color:var(--muted); font-size:14px }
+
+/* Services grid */
+.services{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.service{
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  padding:18px;
+  border-radius:12px;
+  border:1px solid var(--glass-2);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.4);
+}
+.service h4{ margin:0 0 8px }
+.service p{ margin:0; color:var(--muted) }
+
+/* Projects */
+.proj-filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px }
+.filter-btn{
+  padding:8px 12px;
+  background:transparent;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.03);
+  cursor:pointer;
+  font-weight:700;
+  color:var(--muted);
+}
+.filter-btn.active{ background:var(--accent); color:var(--black) }
+
+.projects-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.project{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  padding:14px;
+  border-radius:12px;
+  cursor:pointer;
+  border:1px solid var(--glass);
+  transition: transform .28s cubic-bezier(.2,.9,.2,1);
+}
+.project:hover{ transform: translateY(-8px) }
+.project .thumb{ height:160px; border-radius:10px; overflow:hidden; margin-bottom:10px; border:1px solid rgba(0,0,0,0.2) }
+.project h4{ margin:0 0 6px }
+.project p{ margin:0; color:var(--muted); font-size:14px }
+
+/* Testimonials */
+.testimonials{ display:grid; grid-template-columns: 1fr 1fr; gap:12px }
+.test{ background:var(--card); padding:16px; border-radius:12px; border:1px solid var(--glass) }
+
+/* Contact */
+.contact-grid{ display:grid; grid-template-columns: 1fr 420px; gap:18px; align-items:start }
+.contact-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:12px;
+  padding:18px;
+  border:1px solid var(--glass-2);
+}
+form input, form textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.18);
+  color:var(--text);
+  margin-bottom:10px;
+  resize:vertical;
+}
+form label{ font-size:13px; color:var(--muted); margin-bottom:6px; display:block }
+.meta-list{ display:flex; flex-direction:column; gap:8px }
+.meta-item{ display:flex; gap:10px; align-items:center; }
+
+footer{
+  padding:18px 0 72px; color:var(--muted);
+  text-align:center;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99;
+  background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.85));
+  padding:24px;
+}
+.modal.show{ display:flex }
+.modal-card{
+  width:min(900px,96%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:12px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: var(--shadow);
+}
+.modal-grid{ display:flex; gap:12px; align-items:flex-start; }
+.modal-left{ flex:1; }
+.modal-right{ width:320px; }
+
+/* responsive */
+@media (max-width:980px){
+  .hero, .contact-grid{ grid-template-columns: 1fr; }
+  .profile-card{ flex-direction:column; align-items:flex-start }
+  header{ position:static }
+  .testimonials{ grid-template-columns: 1fr }
+}
+@media (max-width:560px){
+  .brand h1{ font-size:16px }
+  .avatar{ width:92px; height:92px }
+}
+
+  </style>
+</head>
+<body>
+  <span id="modeToggle" style="position:fixed;top:16px;right:16px;z-index:1000;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:12px;box-shadow:0 2px 8px rgba(47,168,255,0.12);background:var(--card);border:2px solid var(--accent);">
+    <svg id="modeIcon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="12" fill="#2FA8FF" id="sunIcon" />
+      <path id="moonIcon" d="M16 4a12 12 0 0 0 0 24c-6.627 0-12-5.373-12-12S9.373 4 16 4z" fill="#071633" style="display:none;"/>
+    </svg>
+  </span>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+  <img src="images/image1.png" height="70" alt="Logo">
+        </svg>
+        <div>
+          <h1>Dubem Graphics</h1>
+          <small>Frontend • Character • Graphic • Web</small>
+        </div>
+      </div>
+      <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="cta">
+        <a class="ghost" href="resume.pdf" target="_blank" rel="noopener">Download CV</a>
+        <button class="btn" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+      </div>
+    </div>
+
+  </header>  <main class="container" id="home"><!-- HERO -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="intro">
+    <h2 id="hero-heading">Hi — I'm <span style="color:var(--accent)">Justin</span> — <span class="muted">Front-end,Graphic Designer & UIUX Designer</span></h2>
+    <p class="lead">I craft polished interfaces, memorable characters, and bold branding for digital products and creators. I build pixel-perfect web experiences and visual identities that scale.</p>
+
+    <div class="roles">
+      <div class="role">Frontend Designer</div>
+      <div class="role">Character Designer</div>
+      <div class="role">Graphic Designer</div>
+      <div class="role">Webpage Designer</div>
+    </div>
+
+    <div class="quick-stats">
+      <div class="stat">
+        <b>5+</b>
+        <span>Years experience</span>
+      </div>
+      <div class="stat">
+        <b>80+</b>
+        <span>Projects shipped</span>
+      </div>
+      <div class="stat">
+        <b>30+</b>
+        <span>Happy clients</span>
+      </div>
+    </div>
+
+    <div style="margin-top:18px; display:flex; gap:10px;">
+      <a class="btn" href="#projects">View Projects</a>
+      <a class="ghost" href="mailto:hello@dubemgraphics.com">Email Me</a>
+    </div>
+  </div>
+
+  <aside class="profile-card" aria-label="Profile card">
+    <div class="profile-left">
+      <div class="avatar" title="Replace 'profile.jpg' with your image">
+        <!-- Replace profile.jpg with your real profile image -->
+  <img id="profileImage" src="images/image2.jpg" alt="Dubem's profile photo">
+        <div class="edit-hint"></div>
+      </div>
+
+      <div class="profile-meta">
+        
+  <h3>Dubem Graphics</h3>
+        <p class="muted">Frontend, Character & Graphic Designer</p>
+        <div style="margin-top:8px" class="micro">I design clean interfaces, character art and visual systems for brands & apps.</div>
+        <div style="margin-top:12px" class="socials">
+          <a href="https://wa.me/2348140435771" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://facebook.com/dubemgraphics" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://instagram.com/dubemgraphics" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-heading">
+  <div class="section-head">
+    <h3 id="about-heading">About</h3>
+    <p class="muted">A little about my process & background</p>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:start;">
+    <div style="background:linear-gradient(180deg, rgba(255,255,255,0.01),transparent); padding:18px; border-radius:12px; border:1px solid var(--glass-2); box-shadow: var(--shadow);">
+      <h4>My approach</h4>
+      <p class="muted">I combine user-centered front-end practices with strong visual storytelling. I like to start with research, then move to low-fidelity wireframes, iterate with stakeholders, and finally deliver polished UI and assets.</p>
+
+      <h4 style="margin-top:12px">Tools I use</h4>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px">
+        <div class="role">Figma</div>
+        <div class="role">HTML/CSS/JS</div>
+        <div class="role">Procreate / Photoshop</div>
+        <div class="role">Illustrator</div>
+        <div class="role">Blender (basic)</div>
+      </div>
+
+      <h4 style="margin-top:12px">Selected achievements</h4>
+      <ul class="muted">
+        <li>Lead designer for 10+ apps & websites</li>
+        <li>Character series sold to 2 indie studios</li>
+        <li>Visual identity for multiple startups</li>
+      </ul>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card contact-card">
+        <h4>Contact quick</h4>
+        <div class="meta-list">
+          <div class="meta-item"><strong>WhatsApp:</strong><span class="muted">08140435771</span></div>
+          <div class="meta-item"><strong>Facebook:</strong><span class="muted">dubemgraphics</span></div>
+          <div class="meta-item"><strong>Instagram:</strong><span class="muted">dubemgraphics</span></div>
+        </div>
+      </div>
+
+      <div class="card contact-card">
+        <h4>Availability</h4>
+        <p class="muted">Open for freelance & small teams. Typical projects: UI revamps, character packs, brand identity, landing pages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-head">
+    <h3>Services</h3>
+    <p class="muted">What I offer — clear deliverables & timelines</p>
+  </div>
+
+  <div class="services">
+    <div class="service">
+      <h4>UI / Frontend Design</h4>
+      <p class="muted">Designing responsive interfaces, prototypes and handoff-ready assets for devs.</p>
+    </div>
+    <div class="service">
+      <h4>Character Design</h4>
+      <p class="muted">From concept sketches to final colored characters and turnaround sheets.</p>
+    </div>
+    <div class="service">
+      <h4>Brand & Visual Identity</h4>
+      <p class="muted">Logo design, color systems, brand guidelines and assets for social & print.</p>
+    </div>
+    <div class="service">
+      <h4>Webpage Design & Build</h4>
+      <p class="muted">Landing pages, portfolio sites, and interactive micro-sites with clean code.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" aria-labelledby="projects-heading">
+  <div class="section-head">
+    <h3 id="projects-heading">Projects</h3>
+    <p class="muted">A curated selection — click a card to view case study</p>
+  </div>
+
+  <div class="proj-filters" role="list">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="web">Web</button>
+    <button class="filter-btn" data-filter="branding">Branding</button>
+    <button class="filter-btn" data-filter="character">Character</button>
+  </div>
+  
+
+  <div class="projects-grid" id="projectsGrid">
+    <!-- Example project card 1 -->
+    <article class="project" data-category="web" tabindex="0" aria-label="Project: Nova app">
+      <div class="thumb">
+  <img src="images/image4.jpg"alt="Nova app screenshot">
+      </div>
+      <h4>Apps UI</h4>
+      <p class="muted">A landing + dashboard design for a fintech wallet. Tools: Figma, HTML/CSS.</p>
+    </article>
+
+    <!-- Example project card 2 -->
+    <article class="project" data-category="character" tabindex="0" aria-label="Project: Nebula characters">
+      <div class="thumb">
+  <img src="images/image5.jpg" alt="Character set preview">
+      </div>
+      <h4>Character Design</h4>
+      <p class="muted">Character pack with expressions and poses for an indie game. Tools: Procreate, Photoshop.</p>
+    </article>
+
+    <!-- Example project card 3 -->
+    <article class="project" data-category="branding" tabindex="0" aria-label="Project: Lunar branding">
+      <div class="thumb">
+  <img src="images/image6.jpg" alt="Branding preview">
+      </div>
+      <h4>Lunar — Brand Identity</h4>
+      <p class="muted">Full identity system with epaper mockups. Tools: Illustrator.</p>
+    </article>
+
+    <!-- Add more project cards here. For each, set data-category to web|branding|character -->
+  </div>
+</section>
+
+<!-- Full-Screen Image Modal -->
+<div class="image-modal" id="imageModal" aria-hidden="true">
+  <div class="image-modal-content">
+    <img id="fullScreenImage" src="" alt="Full-screen project image">
+    <button class="close-btn" onclick="closeImageModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  // Update icon on mode change
+  function updateModeIcon() {
+    const sun = document.getElementById('sunIcon');
+    const moon = document.getElementById('moonIcon');
+    if(document.body.classList.contains('light-mode')) {
+      sun.style.display = '';
+      moon.style.display = 'none';
+    } else {
+      sun.style.display = 'none';
+      moon.style.display = '';
+    }
+  }
+  document.getElementById('modeToggle').onclick = function() {
+    document.body.classList.toggle('light-mode');
+    localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    updateModeIcon();
+  };
+  if(localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+  updateModeIcon();
+  // Light/Dark mode toggle
+  document.getElementById('modeToggle').onclick = function() {
+    document.body.classList.toggle('light-mode');
+    localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+  };
+  if(localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+  // Full-Screen Image Modal Logic
+  const imageModal = document.getElementById('imageModal');
+  const fullScreenImage = document.getElementById('fullScreenImage');
+
+  // Open the full-screen image modal
+  document.querySelectorAll('.project .thumb img').forEach(img => {
+    img.addEventListener('click', () => {
+      fullScreenImage.src = img.src;
+      imageModal.classList.add('show');
+      imageModal.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+   // Close the full-screen image modal
+   function closeImageModal() {
+      imageModal.classList.remove('show');
+      imageModal.setAttribute('aria-hidden', 'true');
+      fullScreenImage.src = '';
+    }
+
+    // Close modal when clicking outside the image or pressing Escape
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) closeImageModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && imageModal.classList.contains('show')) closeImageModal();
+    });
+
+  // Hamburger menu toggle logic
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('nav ul');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+</script>
+
+<!-- Testimonials -->
+<section id="testimonials">
+  <div class="section-head">
+    <h3>Testimonials</h3>
+    <p class="muted">What clients say</p>
+  </div>
+
+  <div class="testimonials">
+    <div class="test">
+      <strong>Jane O.</strong>
+      <p class="muted">"Dubem transformed our product UI — faster than expected and the polish is top-tier."</p>
+    </div>
+    <div class="test">
+      <strong>Studio K</strong>
+      <p class="muted">"Great character work; the designs integrated seamlessly with our game pipeline."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-head">
+    <h3>Contact</h3>
+    <p class="muted">Start your project or just say hi — I'll reply fast.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div>
+      <div class="contact-card">
+        <form id="contactForm" onsubmit="submitContact(event)">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project" required></textarea>
+
+          <div style="display:flex; gap:10px;">
+            <button class="btn" type="submit">Send message</button>
+            <a class="ghost" href="https://wa.me/2348140435771" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </form>
+      </div>
+
+      <div style="margin-top:12px; color:var(--muted); font-size:13px;">
+        <p><strong>Email:</strong>muomaifeblaise@gmail.com</p>
+        <p><strong>Phone/WhatsApp:</strong> 08140435771</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="contact-card">
+        <h4>Quick project brief</h4>
+        <p class="muted">Share the scope, timeline and budget range. If you have references, add links. I'll respond with availability and a short proposal.</p>
+
+        <div style="margin-top:12px">
+          <strong>Socials</strong>
+          <div style="margin-top:8px" class="socials">
+            <a href="https://wa.me/2348140435771" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="https://facebook.com/dubemgraphics" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://instagram.com/dubemgraphics" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<footer>
+  <div style="opacity:.9">© <strong>Dubem Graphics</strong> — Built with care • <span class="micro">Follow: @dubemgraphics</span></div>
+</footer>
+
+  </main>  <!-- PROJECT MODAL -->  <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-label="Project details">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+        <h3 id="modalTitle">Project title</h3>
+        <button class="ghost" onclick="closeModal()">Close</button>
+      </div><div class="modal-grid">
+    <div class="modal-left">
+      <div style="border-radius:10px; overflow:hidden; margin-bottom:12px">
+        <img id="modalImage" src="" alt="Project image" style="width:100%; height:360px; object-fit:cover;" onerror="this.src=emptyThumb()">
+      </div>
+      <p id="modalDesc" class="muted">Project description goes here. Replace with a full case study summary, challenge, approach and results.</p>
+    </div>
+
+    <aside class="modal-right">
+      <div style="background:var(--card); padding:12px; border-radius:10px; border:1px solid var(--glass)">
+        <h4 class="micro">Tools</h4>
+        <p class="muted" id="modalTools">Figma • HTML/CSS</p>
+        <h4 class="micro" style="margin-top:12px">Deliverables</h4>
+        <ul class="muted">
+          <li>Design System</li>
+          <li>Prototype</li>
+          <li>Asset pack</li>
+        </ul>
+        <div style="margin-top:12px">
+          <a class="btn" href="#" id="modalLiveLink" target="_blank" rel="noopener">View live</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+  </div><script>
+  // =========================
+  // Helper functions & small UI logic
+  // =========================
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const href = a.getAttribute('href');
+      if(!href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+
+  // Filter projects
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projects = document.querySelectorAll('.project');
+
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      projects.forEach(p=>{
+        if(f === 'all' || p.dataset.category === f) p.style.display = '';
+        else p.style.display = 'none';
+      });
+    })
+  });
+
+  // Modal logic
+  const modal = document.getElementById('projectModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalImage = document.getElementById('modalImage');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalTools = document.getElementById('modalTools');
+  const modalLiveLink = document.getElementById('modalLiveLink');
+
+  // Sample project data map - expand or replace with real
+  const projectData = {
+    "Nova — App UI": {
+      title: "Nova — App UI",
+      img: "project1.jpg",
+      desc: "A clean, modern wallet UI with improved onboarding and performance-focused components. I focused on reducing cognitive load and streamlining the payment flow.",
+      tools: "Figma • HTML/CSS",
+      live: "#"
+    },
+    "Nebula Characters": {
+      title: "Nebula Characters",
+      img: "project2.jpg",
+      desc: "A character pack designed for quick rigging and expressive animation. Included sheet, color variants and sprite exports for the engine.",
+      tools: "Procreate • Photoshop",
+      live: "#"
+    },
+    "Lunar — Brand Identity": {
+      title: "Lunar — Brand Identity",
+      img: "project3.jpg",
+      desc: "A minimal visual system for a lifestyle brand—logo suite, color systems, and packaging mockups.",
+      tools: "Illustrator • Figma",
+      live: "#"
+    }
+  };
+
+  // Open modal when project clicked
+  document.querySelectorAll('.project').forEach(card=>{
+    card.addEventListener('click', ()=> openProject(card));
+    card.addEventListener('keypress', (e)=> { if(e.key === 'Enter') openProject(card) });
+  });
+
+  function openProject(card){
+    const title = card.querySelector('h4').textContent;
+    const data = projectData[title] || {};
+    modalTitle.textContent = data.title || title;
+    modalImage.src = data.img || card.querySelector('img').src;
+    modalDesc.textContent = data.desc || card.querySelector('p').textContent;
+    modalTools.textContent = data.tools || 'Figma • HTML/CSS';
+    modalLiveLink.href = data.live || '#';
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden','false');
+  }
+  function closeModal(){
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden','true');
+  }
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+
+  // Fallback placeholder for missing images
+  function emptyThumb(){
+    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='480'><rect rx='12' width='100%' height='100%' fill='%23071820'/><text x='50%' y='50%' fill='%2393C9FF' font-family='Arial' font-size='22' text-anchor='middle' dy='.35em'>Image placeholder</text></svg>";
+  }
+
+  // Contact form (client-side): opens mail client with prefilled content
+  function submitContact(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const subject = encodeURIComponent(`New project enquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent from Dubem Graphics portfolio`);
+    // Use mailto
+    window.location.href = `mailto:hello@dubemgraphics.com?subject=${subject}&body=${body}`;
+  }
+
+  // Accessibility: close modal with Escape
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+  });
+
+  // Replace profile image quickly via drag & drop (client only, optional)
+  (function enableAvatarDrop(){
+    const avatarImg = document.getElementById('profileImage');
+    const avatarBox = avatarImg.parentElement;
+    avatarBox.addEventListener('dragover', e=>{ e.preventDefault(); avatarBox.style.outline='2px dashed rgba(47,168,255,0.2)'; });
+    avatarBox.addEventListener('dragleave', e=>{ avatarBox.style.outline=''; });
+    avatarBox.addEventListener('drop', e=>{
+      e.preventDefault(); avatarBox.style.outline='';
+      const file = e.dataTransfer.files[0];
+      if(!file) return;
+      const url = URL.createObjectURL(file);
+      avatarImg.src = url;
+    });
+  })();
+
+</script></body>
+</html>
